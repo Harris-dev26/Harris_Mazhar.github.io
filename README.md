@@ -1,2 +1,1 @@
-# Harris_Mazhar.github.io
-My Portfolio
+# Harris-Mazhar.github.io

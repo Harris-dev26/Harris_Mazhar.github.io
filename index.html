@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harris's Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+    /* --- Global Styles & Variables --- */
+    :root {
+        --burgundy-primary: #800020; /* Classic Burgundy */
+        --burgundy-accent: #A02040; /* Slightly lighter burgundy for hover/accents */
+        --burgundy-hover: #C04060; /* Even lighter for link hovers */
+        --grey-background: #2c2c2c; /* Dark grey background */
+        --grey-surface: #3a3a3a;   /* Medium-dark grey for cards/surfaces */
+        --grey-border: #505050;    /* Lighter grey for borders */
+        --text-primary: #f0f0f0;   /* Light grey/off-white for main text */
+        --text-secondary: #b0b0b0; /* Dimmer grey for secondary text */
+        --heading-font: 'Montserrat', sans-serif;
+        --body-font: 'Lato', sans-serif;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: var(--body-font);
+        background-color: var(--grey-background);
+        color: var(--text-primary);
+        line-height: 1.7;
+        padding-top: 80px; /* For fixed header */
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    h1, h2, h3, h4 {
+        font-family: var(--heading-font);
+        color: var(--burgundy-accent);
+        margin-bottom: 0.75rem;
+    }
+
+    h2 { font-size: 2rem; margin-top: 2.5rem; border-bottom: 2px solid var(--grey-border); padding-bottom: 0.5rem;}
+    h3 { font-size: 1.5rem; color: var(--text-primary);} /* For item titles */
+    /* h4 used for skill categories is styled specifically under #skills */
+
+    p {
+        margin-bottom: 1rem;
+        color: var(--text-secondary);
+    }
+
+    a {
+        color: var(--burgundy-accent);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: var(--burgundy-accent);
+        text-decoration: underline;
+    }
+
+    ul {
+        list-style-position: inside;
+        padding-left: 0; /* Resets browser default for ul */
+    }
+    ul li {
+        margin-bottom: 0.5rem;
+    }
+
+    /* --- Header / Navigation --- */
+    .site-header {
+        background-color: var(--grey-surface);
+        border-bottom: 2px solid var(--burgundy-accent);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 15px 0;
+    }
+
+    .site-header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .site-logo {
+        font-family: var(--heading-font);
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    .site-logo a {
+         color: var(--text-primary);
+    }
+    .site-logo a:hover {
+        text-decoration: none;
+        color: var(--burgundy-accent);
+    }
+
+    .main-nav ul {
+        list-style: none;
+        display: flex;
+    }
+
+    .main-nav ul li {
+        margin-left: 25px;
+        margin-bottom: 0;
+    }
+
+    .main-nav ul li a {
+        color: var(--text-primary);
+        font-weight: 700;
+        padding: 5px 0;
+    }
+    .main-nav ul li a:hover {
+        color: var(--burgundy-hover);
+        text-decoration: none;
+    }
+
+    /* --- Intro Section --- */
+    #intro {
+        padding-top: 30px;
+        padding-bottom: 40px;
+    }
+
+    #intro .intro-layout {
+        display: flex;
+        align-items: flex-start; /* Align tops of image container and text block */
+        gap: 30px;
+    }
+
+    #intro .profile-pic-container {
+        flex-shrink: 0;
+    }
+
+    #intro .profile-pic {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        margin-top: 0; /* Start here. Adjust with small negative value like -10px if needed to align with text better */
+        object-position: center top;
+        transition: transform 0.3s ease;
+    }
+    #intro .profile-pic:hover {
+        transform: scale(1.05);
+    }
+
+    #intro .intro-text-content {
+        flex-grow: 1;
+        text-align: left;
+    }
+
+    #intro .intro-name {
+        font-size: 2.8rem;
+        font-family: var(--heading-font);
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+    }
+
+    #intro .intro-tagline {
+        font-family: var(--body-font);
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        font-weight: 300;
+    }
+
+    #intro .contact-info {
+        margin-bottom: 1.5rem;
+    }
+    #intro .contact-info a {
+        color: var(--burgundy-accent);
+        margin-right: 15px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+    #intro .contact-info a:hover {
+        color: var(--burgundy-hover);
+        text-decoration: underline;
+    }
+    #intro .contact-info a:last-of-type {
+        margin-right: 0;
+    }
+
+    #intro .intro-text-content p {
+        margin-bottom: 1rem;
+        color: var(--text-secondary);
+    }
+    #intro .contact-info + p {
+         margin-top: 0;
+    }
+
+    /* Responsive adjustments for Intro Section */
+    @media (max-width: 768px) {
+        #intro .intro-layout {
+            flex-direction: column;
+            align-items: center;
+        }
+        #intro .profile-pic-container {
+            margin-bottom: 25px;
+        }
+        #intro .profile-pic {
+            margin-top: 0;
+        }
+        #intro .intro-text-content,
+        #intro .intro-name,
+        #intro .intro-tagline,
+        #intro .contact-info {
+            text-align: center;
+        }
+    }
+
+    /* --- General Section Styling (for sections after intro) --- */
+    section:not(#intro) {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+    /* --- Item List Styling (Projects, Talks) --- */
+    .item-list .item {
+        background-color: var(--grey-surface);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border-left: 5px solid var(--burgundy-accent);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .item-list .item h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .item-list .item .authors, .item-list .item .course-info, .item-list .item .technologies {
+        font-style: italic;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+     .item-list .item .technologies {
+        font-style: normal;
+    }
+
+    .item-list .item .conference, .item-list .item .event-details {
+        font-weight: bold;
+        color: var(--burgundy-accent);
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+    }
+    .item-list .item .description {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+    .item-list .item .links a {
+        margin-right: 10px;
+        font-weight: bold;
+        font-size: 0.9rem;
+        padding: 3px 8px;
+        border: 1px solid var(--burgundy-accent);
+        border-radius: 3px;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+    .item-list .item .links a:hover {
+        background-color: var(--burgundy-accent);
+        color: var(--text-primary);
+        text-decoration: none;
+    }
+
+    /* --- Teaching & Awards Section (List styling) --- */
+    #teaching ul, #awards ul { /* Shared styling for these lists */
+        padding-left: 0; /* Explicitly remove padding for these specific lists */
+    }
+    #teaching ul li, #awards ul li {
+        background-color: var(--grey-surface);
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        border-radius: 3px;
+        border-left: 3px solid var(--burgundy-accent);
+        list-style-type: none; /* Remove bullets if using this card-like style */
+    }
+    #awards ul li {
+        font-weight: bold; /* Specific to awards if needed */
+    }
+
+    /* --- Skills Section --- */
+    #skills h4 { /* Category titles in Skills section */
+        color: var(--text-primary);
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.3rem;
+        border-bottom: 1px solid var(--grey-border);
+        padding-bottom: 0.25rem;
+    }
+
+    .skill-category {
+        margin-bottom: 1.5rem;
+    }
+
+    .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-left: 0; /* Ensure no padding here either */
+    }
+    .skills-list .skill-badge { /* Target li if skills are list items */
+        list-style-type: none; /* Remove bullets if skill-badge is an li */
+    }
+
+
+    .skill-badge {
+        background-color: var(--grey-surface);
+        color: var(--text-primary);
+        padding: 8px 15px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        border: 1px solid var(--grey-border);
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+        display: inline-block; /* Ensure proper layout of badges */
+    }
+
+    .skill-badge:hover {
+        background-color: var(--burgundy-accent);
+        color: var(--text-primary);
+        transform: translateY(-2px);
+        cursor: default;
+    }
+
+    .skill-badge.certification {
+        background-color: var(--burgundy-accent);
+        border-color: var(--burgundy-accent);
+        color: var(--text-primary);
+    }
+    .skill-badge.certification:hover {
+        background-color: var(--burgundy-hover);
+    }
+
+    a.skill-badge.certification { /* If certifications are links */
+        cursor: pointer;
+    }
+    a.skill-badge.certification:hover {
+        text-decoration: none; /* Overrides general a:hover if needed */
+    }
+
+
+    /* --- Footer --- */
+    .site-footer {
+        text-align: center;
+        padding: 30px 0;
+        margin-top: 40px;
+        background-color: var(--grey-surface);
+        border-top: 2px solid var(--burgundy-accent);
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    /* --- Doodles --- */
+    .doodle {
+        position: fixed;
+        color: var(--burgundy-primary); /* Color of the doodles */
+        opacity: 0.9; /* Adjust for how much they blend (0.1-0.3 is good) */
+        z-index: 0; /* Behind header (1000), can be above body's default background */
+    }
+
+    .doodle svg {
+        display: block; /* Removes any extra space below SVGs */
+        width: 100%;
+        height: 100%;
+    }
+
+    .doodle-1 {
+        width: 120px;    /* SVG's intrinsic width */
+        height: 120px;  /* SVG's intrinsic height */
+        top: 30vh;      /* Position from top (viewport height percentage) */
+        left: 3vw;      /* Position from left (viewport width percentage) */
+        transform: rotate(-15deg); /* Slight rotation for 'doodle' effect */
+    }
+
+    .doodle-2 {
+        width: 120px;    /* SVG's intrinsic width */
+        height: 120px;  /* SVG's intrinsic height */
+        top: 25vh;
+        right: 2.5vw;   /* Position from right */
+        transform: translateY(-50%) rotate(10deg); /* Center vertically then rotate */
+    }
+
+    .doodle-3 {
+        width: 120px;    /* SVG's intrinsic width */
+        height: 120px;  /* SVG's intrinsic height */
+        top: 10vh;
+        left: 4vw;
+        transform: rotate(5deg);
+    }
+
+    /* Hide doodles on smaller screens where they might clutter or overlap content */
+    /* Breakpoint chosen based on main container width (900px) + some margin for doodles */
+    @media (max-width: 1200px) {
+        .doodle {
+            display: none;
+        }
+    }
+
+</style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="site-logo"><a href="#">Back to the top</a></div>
+            <nav class="main-nav">
+                <ul>
+
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#teaching">Teaching</a></li>
+                    <li><a href="#misc">Miscellaneous</a></li>
+                    <li><a href="https://drive.google.com/file/d/1Ta6W7AQOuP8An1-szkQLkLiDQyDgTqe2/view?usp=sharing" target="_blank" rel="noopener noreferrer">Résumé</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section id="intro">
+            <div class="intro-layout">
+                <div class="profile-pic-container">
+                    <img src="My_Photo.jpeg" alt="Harris Mazhar" class="profile-pic">
+                </div>
+                <div class="intro-text-content">
+                    <h1 class="intro-name">Harris Mazhar / حارس مظهر</h1>
+                    <p class="intro-tagline">MS @ University Of Rochester | Graduate Research Assistant |  Graduate Teaching Assistant | F1 enthusiast</p>
+                    <div class="contact-info">
+                        <a href="mailto:hmazhar2@ur.rochester.edu">| hmazhar2 {at} ur {dot} rochester {dot} edu |</a>
+                        <a href="https://www.linkedin.com/in/harris-mazhar" target="_blank">| LinkedIn |</a>
+                        <a href="https://github.com/Harris-dev26" target="_blank">| GitHub |</a>
+                    </div>
+                    <p>
+                        I am a second-year MSc in Data Science student at the University of Rochester, currently working with Professor <a href="https://son.rochester.edu/directory/dillondzikowicz/" target="_blank" rel="noopener noreferrer">Dillon Dzikowicz</a>. Before joining the University of Rochester, I was at the Lahore University of Management Sciences (LUMS), where I majored in Computer Science (BS ’24). My research broadly focuses on understanding how developing deep learning and NLP techniques can be leveraged to assist actors in the Medicine and Health sector. Key applications of this interest include developing models for physician assistance, architecting data pipelines to enhance patient experiences, and advancing computer-aided diagnosis.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+       <section id="projects">
+            <h2>Projects / المشاريع</h2>
+            <div class="item-list">
+
+                <div class="item">
+                    <h3>Sanctions, Transitional Governments, and News Outlets: A Case Analysis on Syria</h3>
+                    <p class="event-details">May 2025 - Ongoing</p>
+                    <p class="technologies">Key Technologies: Sentiment Analysis (DistilBERT), Tone Analysis (DeBERTa), Topic Modeling (TF-IDF, DBSCAN, TopicBERT), Named Entity Recognition (spaCy), Webscraping (Beautiful Soup)</p>
+                    <p class="description">
+                        <ul>
+                            <li>This ongoing research analyzes narrative shifts in Syrian media by examining over 800 articles from key pro- and anti-transitional news outlets, employing advanced NLP techniques like sentiment, tone, and topic modeling to dissect discourse surrounding policy changes.</li>
+                            <li>Initial findings indicate a significant increase in assertive tone among pro-transitional media following sanctions relief, while anti-transitional outlets, despite some nuanced shifts, have largely maintained their distinct oppositional perspectives.</li>
+                            <li>The study currently suggests that international policy interventions have selective and alignment-mediated impacts on media narratives, particularly within highly polarized and transitional political contexts.</li>
+                        </ul>
+                    </p>
+                    <div class="links">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <h3>Tracking Tweet Sentiment at Scale</h3>
+                    <p class="event-details">Jan 2025 - May 2025</p> 
+                    <p class="technologies">Key Technologies: Spark Streaming, Delta Lake, MLflow, Hugging Face Transformers, Python, PySpark, Pandas, Matplotlib, Databricks</p>
+                    <p class="description">
+                        <ul>
+                            <li>Designed and implemented a scalable, end-to-end data pipeline utilizing Spark Streaming and a Delta Lake medallion architecture for robust, real-time ingestion, versioned management, and transformation of high-volume tweet data.</li>
+                            <li>Deployed a pre-trained Hugging Face transformer model managed via MLflow for efficient, large-scale sentiment inference on streaming data, leveraging Spark UDFs for parallel processing and ensuring comprehensive model performance tracking.</li>
+                            <li>Generated actionable application-level insights through aggregated sentiment data per mention, supported by continuous stream monitoring, exploratory data analysis, and thorough Spark application optimization for enhanced efficiency.</li>
+                        </ul>
+                    </p>
+                    <div class="links">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <h3>Medical Domain Focused Lexical Simplification</h3>
+                    <p class="event-details">Jan 2025 - May 2025</p>
+                    <p class="technologies">Key Technologies: BiomedBERT, LLMs (FLAN-T5), Python, HuggingFace Transformers, NLTK, textstat</p>
+                    <p class="description">
+                        <ul>
+                            <li>Developed a hybrid pipeline utilizing domain-specific BiomedBERT for precise term replacement and LLMs like FLAN-T5 for fluency refinement, aiming to enhance medical text accessibility for non-expert readers while preserving critical information.</li>
+                            <li>Demonstrated the pipeline's superior performance through comprehensive evaluation on the "Med-EASi" clinical dataset, where it outperformed established baselines in balancing readability, semantic fidelity, and overall simplification quality using metrics such as SARI and BLEU.</li>
+                            <li>Contributed to medical NLP, by providing a solution for lexical simplification, addressing the challenge of making complex medical texts more understandable without losing essential content.</li>
+                        </ul>
+                    </p>
+                    <div class="links">
+                    </div>
+                </div>
+
+               <div class="item">
+                    <h3>Symptom & Acoustic Marker Clustering for 911 Calls</h3>
+                    <p class="event-details">Sep 2024 - May 2025</p>
+                    <p class="technologies">Key Technologies: ETL Pipelines, Clustering Models (Univariate, Multivariate)</p>
+                    <p class="description">
+                        <ul>
+                            <li>Architected a comprehensive ETL pipeline to process and structure complex data from over 1,900 patients, laying the groundwork for advanced predictive modeling in emergency cardiac care.</li>
+                            <li>Leveraged univariate and multivariate clustering models with a validated symptom checklist, significantly improving the early identification of acute heart attack patients whose conditions were not apparent on standard ECGs.</li>
+                            <li>Confirmed the model's broad applicability and robustness through rigorous multisite validations, with key findings contributing to a research paper submitted to the prestigious Journal of the American Heart Association.</li>
+                        </ul>
+                    </p>
+                    <div class="links">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <h3>Global Dash Cam Top-View Scene Transformation</h3>
+                    <p class="event-details">Sep 2023 - Dec 2023</p>
+                    <p class="technologies">Key Technologies: Python, OpenCV, TensorFlow, Segmentation, Homography, RCNN</p>
+                    <p class="description">
+                        <ul>
+                            <li>Developed a multi-stage pipeline converting dashcam footage from “comma2k19” dataset into a GPS-style top-view using segmentation, homography, and RCNN-based detection.</li>
+                            <li>Integrated advanced image processing techniques to accurately map and localize scene elements across varying perspectives.</li>
+                            <li>Leveraged Python, OpenCV, and TensorFlow to enhance system robustness for dynamic, autonomous navigation applications.</li>
+                        </ul>
+                    </p>
+                    <div class="links">
+                        </div>
+                </div>
+
+                <div class="item">
+                    <h3>Acoustic Biomarker Based Anxiety and Depression Detection</h3>
+                    <p class="event-details">Jul 2023 - Jun 2024</p>
+                    <p class="technologies">Key Technologies: Python, Apache Spark, Random Forest, Support Vector Machines (SVM)</p>
+                    <p class="description">
+                        <ul>
+                            <li>Spearheaded a comprehensive multi-modal data collection initiative, gathering voice recordings and anonymized mental health survey results from over 200 patients in a clinical setting.</li>
+                            <li>Engineered and optimized automated ETL pipelines using Python and Apache Spark to process and harmonize the multi-modal medical data, ensuring efficient data ingestion and processing, reducing processing time by over 40%.</li>
+                            <li>Designed and implemented Random Forest models and Support Vector Machines, achieving a F1-score exceeding 90% in detecting para verbal cues indicative of mental health disorders, with the models being prepared for peer-reviewed publication.</li>
+                        </ul>
+                    </p>
+                    <div class="links">
+                        </div>
+                </div>
+
+        
+
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills / المهارات</h2>
+            <div class="skills-categories">
+                <div class="skill-category">
+                    <h4>Programming Languages</h4>
+                    <div class="skills-list">
+                        <span class="skill-badge">Python</span>
+                        <span class="skill-badge">JavaScript (TypeScript)</span>
+                        <span class="skill-badge">C++</span>
+                        <span class="skill-badge">SQL</span>
+                        <span class="skill-badge">R</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Libraries & Frameworks</h4>
+                    <div class="skills-list">
+                        <span class="skill-badge">PyTorch</span>
+                        <span class="skill-badge">TensorFlow</span>
+                        <span class="skill-badge">scikit-learn</span>
+                        <span class="skill-badge">Keras</span>
+                        <span class="skill-badge">Pandas</span>
+                        <span class="skill-badge">Regex</span>
+                        <span class="skill-badge">Django</span>
+                        <span class="skill-badge">React</span>
+                        <span class="skill-badge">React Native</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Specialized Platforms</h4>
+                    <div class="skills-list">
+                        <span class="skill-badge">Hugging Face</span>
+                        <span class="skill-badge">Apache Spark</span>
+                        <span class="skill-badge">Power BI</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Certifications</h4>
+                    <div class="skills-list">
+                        <span class="skill-badge">NVIDIA Deep Learning</span>
+                        <span class="skill-badge">NVIDIA Data Science with RAPIDS</span>
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="teaching">
+            <h2>Teaching / التدريس</h2>
+            <ul>
+                <li>Core Member, Teaching Assistant Advisory Group, LUMS Learning Institute, LUMS (2024)</li>
+                <li>Teaching Assistant, Deep Learning (CS437), Dr. Murtaza Taj, LUMS (2024)</li>
+                <li>Teaching Assistant, Software Engineering (CS360), Dr. Maryam Abdul Ghafoor, LUMS (2024)</li>
+                <li>Teaching Assistant, Databases (CS340), Dr. Maryam Abdul Ghafoor, LUMS (2023)</li>
+                <li>Teaching Assistant, Data Structures (CS202), Dr. Agha Ali Raza, LUMS (2023)</li>
+                <li>Teaching Assistant, Machine Learning for Social Sciences (ECON3312), Prof. Raza Mustafa, LUMS (2023)</li>
+                <li>Teaching Assistant, Calculus (MATH101), Dr. Waqar Ahmed, LUMS (2022)</li>
+            </ul>
+        </section>
+
+
+        <section id="misc">
+            <h2>Miscellaneous / متفرقات</h2>
+             <div class="item-list">
+
+                <div class="item">
+                    <h3>Kaggle Competition Win</h3>
+                    <p class="event-details">April 2025 - May 2025</p>
+                    <p class="description">
+                        <ul>
+                            <li>Placed first in a <a href="https://www.kaggle.com/competitions/campaign-contributions-in-the-us-spring-2025/leaderboard" target="_blank" rel="noopener noreferrer">Kaggle Competition</a> on graph-based deep learning along with a teammate.</li>
+                            <li>Developed a graph-based model that outperformed 40+ teams.</li>
+                            <li>Utilized techniques such as network analysis and graph embeddings to enhance model performance.</li>
+                        </ul>
+                    </p>
+                    <div class="links">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <h3>Literature Submission</h3>
+                    <p class="event-details">Sep 2024 - June 2025</p> 
+                    <p class="description">
+                        <ul>
+                           <li>Submitted a paper to the American Heart Association's journal on the impact of Vocal Biomarkers sentiment on cardiovascular health.</li>
+                           <li>Pending Acceptance/Rejection</li>
+                        </ul>
+                    </p>
+                    <div class="links">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section id="cv" style="display:none;">
+            <h2>CV</h2>
+            <p>My CV can be downloaded <a href="https://drive.google.com/file/d/1UTXY_X6hOUeySIXYNr3MU2K1rmfqDvOQ/view?usp=sharing" target="_blank" rel="noopener noreferrer">here</a>.</p>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; <script>document.write(new Date().getFullYear())</script> Harris-dev26. All rights reserved.</p>
+    </footer>
+
+
+    <div class="doodle doodle-1">
+   <a href="https://bbycroft.net/llm" class="doodle doodle-1" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 50 70" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none">
+            <path d="M18,12 C17,6.5 33,6.5 32,12 C33,17.5 17,17.5 18,12 Z"/>
+            <path d="M25,19 Q24,31 25,45"/>
+            <path d="M25,25 Q19,21 10,15"/> <path d="M25,25 Q31,31 38,35"/> <path d="M25,45 Q19.5,52 15,60"/>
+            <path d="M25,45 Q30.5,52 35,60"/>
+        </g>
+    </svg>
+</a>
+    </div>
+
+   
+         
+
+    <div class="doodle doodle-2">
+    <a href="https://arxiv.org/abs/2212.13345" class="doodle doodle-2" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 50 70" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <path d="M19,12 C18,7.5 32,7.5 31,12 C32,16.5 18,16.5 19,12 Z"/>
+                <path d="M25,19 Q26.5,30 25,45"/>
+                <path d="M25,28 Q21,23 18,18"/> <path d="M25,28 Q29,34 35,40"/> <path d="M25,45 Q20.5,53 18,60"/>
+                <path d="M25,45 Q28.5,53 32,60"/>
+            </g>
+        </svg>
+    </a>
+    </div>
+
+
+
+    
+    <div class="doodle doodle-3">
+      <a href="https://arxiv.org/abs/2210.05189" class="doodle doodle-3" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 60 70" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M23,12 C22,6.5 38,6.5 37,12 C38.5,17.5 21.5,17.5 23,12 Z"/>
+            <path d="M30,19 Q29,30 30,40"/>
+            <path d="M30,25 Q21,18 12,10"/> 
+            <path d="M30,25 Q39,18 48,10"/>
+            <path d="M30,40 Q22,51 18,60"/>
+            <path d="M30,40 Q38,51 42,60"/>
+        </g>
+    </svg>
+</a>
+    </div>
+
+    </body>
+</html>
+
+ 
